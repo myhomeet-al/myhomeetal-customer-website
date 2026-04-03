@@ -5,13 +5,12 @@ import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 function valueOrEmpty(value: unknown): string {
   return value ? String(value) : '';
 }
 
 async function sendVerificationEmail(email: string, otp: number, firstname: string) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const response = await resend.emails.send({
       from: 'My home et al <verify@myhomeetal.com>',
