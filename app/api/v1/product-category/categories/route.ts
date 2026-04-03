@@ -4,6 +4,7 @@ import '@/app/models/ProductSubCategory';
 import '@/app/models/Product';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
