@@ -9,7 +9,7 @@ import ProductGallery from './ProductGallery';
 import { ArrowLeftIcon, StarIcon } from '@heroicons/react/16/solid';
 import ProductPrice from './ProductPrice';
 import { useRegion } from '@/app/RegionProvider';
-import { notFound, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import productService from '@/app/services/productService';
 import ClientOnly from '../ClientOnly';
 import { useEffect, useState } from 'react';
@@ -63,25 +63,29 @@ const ProductOverview = ({ data, reviewData }: Props) => {
   const priceInNGN = sanitizeAndConvertPrice(data?.price);
 
   const calculateAverageRating = (reviewData: ReviewType[]) => {
-    const total = reviewData?.reduce((sum, rev) => sum + rev?.rating, 0);
-    return reviewData?.length ? total / reviewData?.length : 0;
+    if (!Array.isArray(reviewData) || reviewData.length === 0) {
+      return 0;
+    }
+    const total = reviewData.reduce((sum, rev) => sum + (rev?.rating || 0), 0);
+    return total / reviewData.length;
   };
 
   const averageRating = calculateAverageRating(reviewData);
-  const reviewCount = reviewData?.length;
+  const reviewCount = Array.isArray(reviewData) ? reviewData.length : 0;
 
   //fetch all saved items
   const fetchSavedItems = async () => {
     try {
       const res = await productService.getSavedProducts();
       if (!res || !res.data) {
-        console.log('id not found');
-        return notFound();
+        console.log('Saved items not found');
+        setSavedItems([]);
+        return;
       }
       setSavedItems(res?.data?.savedItems);
     } catch (error) {
-      console.error('Error in ProductPage:', error);
-      return notFound();
+      console.error('Error fetching saved items:', error);
+      setSavedItems([]);
     }
   };
 

@@ -1,16 +1,17 @@
 import React from 'react';
-import Cookie from 'js-cookie';
+import { cookies } from 'next/headers';
 import Category from '@/app/components/category/CategoryGrid';
 import { CategoryType } from '@/types';
 import AdBanner2 from '@components/banner/AdBanner2';
 import AdBanner3 from '@components/banner/AdBanner3';
 import { shuffleArray } from '../utils/helpers';
+import { serverFetch } from '@/app/utils/serverFetch';
 
 // Fetch top categories from the API
-const fetchTopCategories = async (token: string): Promise<CategoryType[]> => {
+const fetchTopCategories = async (token: string | undefined): Promise<CategoryType[]> => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product-category/top-categories`,
+    const res = await serverFetch(
+      `/api/v1/product-category/top-categories`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -31,10 +32,10 @@ const fetchTopCategories = async (token: string): Promise<CategoryType[]> => {
 };
 
 // Fetch products for each category
-const fetchProductsForCategory = async (category: CategoryType, token: string): Promise<any> => {
+const fetchProductsForCategory = async (category: CategoryType, token: string | undefined): Promise<any> => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product/category/${category?._id}`,
+    const res = await serverFetch(
+      `/api/v1/product/category/${category?._id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -55,7 +56,8 @@ const fetchProductsForCategory = async (category: CategoryType, token: string): 
 };
 
 const HomeCategoryProductList = async () => {
-  const token = Cookie.get('AUTH_TOKEN');
+  const cookieStore = await cookies();
+  const token = cookieStore.get('AUTH_TOKEN')?.value;
   let topCategories: CategoryType[] = [];
 
   try {

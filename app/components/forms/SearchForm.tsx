@@ -50,7 +50,7 @@ const SearchForm = () => {
       if (query.length > 2) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product/suggestions?query=${encodeURIComponent(query)}`
+            `/api/v1/product/suggestions?query=${encodeURIComponent(query)}`
           );
           if (!response.ok) {
             throw new Error('Failed to fetch suggestions');

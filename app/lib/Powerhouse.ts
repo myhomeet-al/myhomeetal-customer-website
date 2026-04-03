@@ -1,6 +1,6 @@
 export const rexPay = async({orderId, amount, email}) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}payment/rexpay/initiate`, {
+    const res = await fetch(`/api/v1/payment/rexpay/initiate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

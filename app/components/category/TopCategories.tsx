@@ -1,18 +1,20 @@
 // 'use client';
 
-import Cookie from 'js-cookie';
+import { cookies } from 'next/headers';
 // import { useCartActions } from '@/app/utils/helpers';
 import { CategoryType } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { shuffleArray } from '@/app/utils/helpers';
+import { serverFetch } from '@/app/utils/serverFetch';
 // import { useEffect } from 'react';
 
 const fetchTopCategories = async (): Promise<CategoryType[]> => {
-  const token = Cookie.get('AUTH_TOKEN');
+  const cookieStore = await cookies();
+  const token = cookieStore.get('AUTH_TOKEN')?.value;
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product-category/top-categories`,
+    const res = await serverFetch(
+      `/api/v1/product-category/top-categories`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

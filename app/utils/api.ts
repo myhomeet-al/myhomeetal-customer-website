@@ -12,7 +12,7 @@ const api = {
   GET_REFERRALS: 'user/referrals',
   DELETE_USER: 'user/delete-account',
   DELIVERY_ADDRESS: '',
-  ORDERS: 'order/create-order',
+  ORDERS: 'order/',
   GET_ORDERS: 'order/purchase-history',
   WALLET: 'wallet/create',
   GET_WALLET:'wallet',

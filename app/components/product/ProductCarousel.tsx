@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import ImgWithFallback from '../ImgWithFallback';
 
 const ProductCarousel = ({ data }: any) => {
   const responsive = {
@@ -36,14 +36,15 @@ const ProductCarousel = ({ data }: any) => {
         {data?.images?.map((image: string, index: number) => (
           <div
             key={index}
-            className={`pt-2 pb-5 ${isSingleImage ? 'flex items-center justify-center' : 'flex items-center justify-center'}`}
+            className={`pt-2 pb-5 w-full h-[450px] flex items-center justify-center ${isSingleImage ? '' : ''}`}
           >
-            <Image
-              className='object-contain h-[331px]'
+            <ImgWithFallback
+              className='object-contain max-h-[450px] max-w-[100%] w-auto h-auto'
               src={image}
               alt={`Product Image ${index + 1}`}
-              width={331}
-              height={331}
+              width={450}
+              height={450}
+              fallbackText="Image unavailable"
             />
           </div>
         ))}

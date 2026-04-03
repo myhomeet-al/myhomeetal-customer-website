@@ -20,7 +20,7 @@ function SearchContent() {
     setError(null);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product/advanced-search?query=${encodeURIComponent(query)}`,
+        `/api/v1/product/advanced-search?query=${encodeURIComponent(query)}`,
         {
           method: 'GET',
           headers: {

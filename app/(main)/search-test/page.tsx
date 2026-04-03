@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import SearchBar from '@/app/components/SearchBar';
 import { useSearch } from '@/app/hooks/useSearch';
+import ImgWithFallback from '@/app/components/ImgWithFallback';
 
 export default function SearchTestPage() {
   const [query, setQuery] = useState('');
@@ -77,10 +78,11 @@ export default function SearchTestPage() {
                       className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition-colors"
                     >
                       <div className="flex gap-4">
-                        <img
+                        <ImgWithFallback
                           src={product.images?.[0] || '/placeholder.png'}
                           alt={product.productTitle}
                           className="w-24 h-24 object-cover rounded"
+                          fallbackText="Image unavailable"
                         />
                         <div className="flex-1">
                           <h3 className="font-semibold text-gray-900 mb-1">

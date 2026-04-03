@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import productService from '@/app/services/productService';
-import { notFound } from 'next/navigation';
 import { HomeSkeleton } from '../loader';
 import StarRating from './starRating';
 import Button from '../Button';
@@ -31,9 +30,9 @@ export default function Reviews() {
         const res = await productService.getAllOrders();
 
         if (!res || !res.data) {
-          console.log('id not found');
+          console.log('Orders not found');
           setLoading(false);
-          return notFound();
+          return;
         }
 
         if (res.status === 200) {
@@ -81,8 +80,9 @@ export default function Reviews() {
         const res = await productService.createReview({ payload, id });
 
         if (!res || !res.data) {
-          console.log('id not found');
-          return notFound();
+          console.log('Review submission failed');
+          toast.error('Failed to submit review');
+          return;
         }
 
         if (res.status === 200) {

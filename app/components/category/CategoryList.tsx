@@ -1,13 +1,15 @@
 import Link from 'next/link';
-import Cookie from 'js-cookie';
+import { cookies } from 'next/headers';
 import Marquee from 'react-fast-marquee';
 import { CategoryType } from '@/types';
+import { serverFetch } from '@/app/utils/serverFetch';
 
 const fetchCategories = async (): Promise<CategoryType[]> => {
-  const token = Cookie.get('AUTH_TOKEN');
+  const cookieStore = await cookies();
+  const token = cookieStore.get('AUTH_TOKEN')?.value;
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}product-category/categories`,
+    const res = await serverFetch(
+      `/api/v1/product-category/categories`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

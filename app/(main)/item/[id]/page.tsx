@@ -7,6 +7,7 @@ import ProductInformationNew from '@/app/components/product/ProductInformationNe
 import AddToCartPopup from '@/app/components/popups/AddToCartPopup';
 import toast from 'react-hot-toast';
 import { api } from '@/app/utils/api';
+import { constants } from '@/app/utils/constants';
 
 type Params = {
   id: string;
@@ -48,11 +49,11 @@ export default async function page({ params }: { params: Params }) {
 
   try {
     const [res, reviewRes] = await Promise.allSettled([
-      fetch(`${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}${api.PRODUCTS}${params.id}`, {
+      fetch(`${constants.V1_BASE_API_URL}${api.PRODUCTS}${params.id}`, {
         next: { revalidate: 60 },
       }).then((response) => response.json()),
 
-      fetch(`${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}${api.REVIEW}${params.id}`, {
+      fetch(`${constants.V1_BASE_API_URL}${api.REVIEW}${params.id}`, {
         next: { revalidate: 60 },
       }).then((response) => response.json()),
     ]);
@@ -70,8 +71,16 @@ export default async function page({ params }: { params: Params }) {
 
     if (reviewRes.status === 'fulfilled') {
       reviewData = reviewRes?.value;
+      // Ensure reviewData is an array
+      if (reviewData && !Array.isArray(reviewData)) {
+        reviewData = reviewData.data || [];
+      }
+      if (!Array.isArray(reviewData)) {
+        reviewData = [];
+      }
     } else {
       console.error('Review fetch failed:', reviewRes.reason);
+      reviewData = [];
     }
 
     //console.log(data);

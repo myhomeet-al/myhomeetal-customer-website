@@ -4,7 +4,8 @@ const constants = {
   AUTH_TOKEN: 'AUTH_TOKEN',
   USER_INFO: 'USER_INFO',
   REFRESH_TOKEN_COOKIE: 'REFRESH_TOKEN_COOKIE',
-  V1_BASE_API_URL: process.env.NEXT_PUBLIC_V1_BASE_API_URL,
+  V1_BASE_API_URL:
+    process.env.NEXT_PUBLIC_V1_BASE_API_URL || 'http://localhost:3000/api/v1/',
 };
 
 const queryKeys = {

@@ -8,7 +8,6 @@ import Button from '@/app/components/Button';
 import ProductPrice from '@/app/components/product/ProductPrice';
 import { useRegion } from '@/app/RegionProvider';
 import productService from '@/app/services/productService';
-import { notFound } from 'next/navigation';
 import NoHistory from './NoHistory';
 import { HomeSkeleton } from '../loader';
 import Dialog from '@components/Dialog';
@@ -46,17 +45,16 @@ export default function SaveItems() {
     try {
       const res = await productService.getSavedProducts();
       if (!res || !res.data) {
-        console.log('id not found');
+        console.log('Saved items not found');
         setLoading(false);
-        return notFound();
+        return;
       }
       console.log(res);
       setSavedItems(res?.data?.savedItems.reverse());
       setLoading(false);
     } catch (error) {
-      console.error('Error in ProductPage:', error);
+      console.error('Error fetching saved items:', error);
       setLoading(false);
-      return notFound();
     }
   };
 

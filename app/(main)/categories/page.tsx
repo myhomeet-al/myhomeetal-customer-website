@@ -1,17 +1,9 @@
 import CatContainer from "./catContainer";
-import FlashSales from "./FlashSales";
-import FrequentlyShopped from "./FrequentlyShopped";
-import OtherCategory from "./OtherCategory";
-
 
 export default function CategoriesPage() {
  return (
   <>
   <CatContainer />
-  <FrequentlyShopped />
-  <OtherCategory title="SAMSUNG" />
-  <OtherCategory title="LENONO" />
-  <FlashSales />
   </>
  )
 }

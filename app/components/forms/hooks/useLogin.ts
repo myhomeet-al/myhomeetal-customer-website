@@ -77,7 +77,7 @@ export const useLogin = () => {
         const data: any = { email: email };
         try {
           const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}user/resend-otp`,
+            `/api/v1/user/resend-otp`,
             data
           );
 

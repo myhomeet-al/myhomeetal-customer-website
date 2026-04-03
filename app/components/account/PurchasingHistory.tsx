@@ -6,7 +6,6 @@ import cn from 'classnames';
 import ProductPrice from '../product/ProductPrice';
 import { useRegion } from '@/app/RegionProvider';
 import productService from '@/app/services/productService';
-import { notFound } from 'next/navigation';
 import { HomeSkeleton } from '../loader';
 
 export default function PurchasingHistory() {
@@ -31,9 +30,9 @@ export default function PurchasingHistory() {
         const res = await productService.getAllOrders();
 
         if (!res || !res.data) {
-          console.log('id not found');
+          console.log('Orders not found');
           setLoading(false);
-          return notFound();
+          return;
         }
 
         if (res.status === 200) {

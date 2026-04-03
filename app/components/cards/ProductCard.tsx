@@ -8,6 +8,7 @@ import Button from '../Button';
 import ProductPrice from '../product/ProductPrice';
 import { useRegion } from '@/app/RegionProvider';
 import ClientOnly from '../ClientOnly';
+import ImgWithFallback from '../ImgWithFallback';
 
 interface Review {
   _id: string;
@@ -68,7 +69,7 @@ const ProductCard = ({ variant = 'default', product }: Props) => {
       <div className={cls}>
         <Link href={href} className='transition-shadow duration-300'>
           <div className='relative mb-3 flex h-[172px] w-full flex-col items-center justify-between lg:h-[158px] lg:w-full lg:justify-center'>
-            <img
+            <ImgWithFallback
               width="158"
               height="158"
               className={`${variant === 'top' ? '' : 'h-[130px] w-[148px] object-contain lg:h-[158px] lg:w-[158px]'}`}
@@ -77,6 +78,7 @@ const ProductCard = ({ variant = 'default', product }: Props) => {
               loading="lazy"
               decoding="async"
               style={{ transition: 'transform 0.3s' }}
+              fallbackText="Image unavailable"
             />
 
             <div className='flex w-full items-center gap-5 lg:hidden'>

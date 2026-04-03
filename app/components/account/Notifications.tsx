@@ -5,7 +5,6 @@ import cn from 'classnames';
 import Button from '@/app/components/Button';
 import { useEffect, useState } from 'react';
 import productService from '@/app/services/productService';
-import { notFound } from 'next/navigation';
 import authUtils from '@/app/utils/authUtils';
 import NoHistory from './NoHistory';
 

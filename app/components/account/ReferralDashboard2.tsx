@@ -7,7 +7,7 @@ import ClientOnly from '../ClientOnly';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import productService from '@/app/services/productService';
-import { notFound, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import authUtils from '@/app/utils/authUtils';
 
 export default function ReferralDashBoard2() {
@@ -21,8 +21,8 @@ export default function ReferralDashBoard2() {
         if (fetchedUserInfo) {
           const res = await productService.getUserDetails(fetchedUserInfo.id);
           if (!res || !res.data) {
-            console.log('id not found');
-            return notFound();
+            console.log('User details not found');
+            return;
           }
           setCode(res.data.referralCode);
         }

@@ -40,7 +40,7 @@ const productService = {
     return await apiUtils.deleteRequest(`user/saved-item`, payload);
   },
   getProductsByCategory: async (id?: string) => {
-    return await apiUtils.getRequest(`${api.PRODUCTS}/category/${id}`);
+    return await apiUtils.getRequest(`${api.PRODUCTS}category/${id}`);
   },
   getProductCategories: async () => {
     return await apiUtils.getRequest(`${api.PRODUCT_CATEGORIES}`);
@@ -85,7 +85,7 @@ const productService = {
     return await apiUtils.putRequest(`${api.CART}`, payload);
   },
   createOrder: async (payload: { address: string; orderPrice: number; orderItems: { product: string; qty: number; price: number }[]; deliveryMethod: string; paymentMethod: string }) => {
-    return await apiUtils.postRequest(`${api.ORDERS}`, payload);
+    return await apiUtils.postRequest(`${api.ORDERS}create-order`, payload);
   },
   createWallet: async (payload: { display_name: string; bvn: string; firstname: string; currency: string; lastname: string; email: string; date_of_birth: string; gender: string; email_alert: boolean; mobile_number: string }) => {
     return await apiUtils.postRequest(`${api.WALLET}`, payload);

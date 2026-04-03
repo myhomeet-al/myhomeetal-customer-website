@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Remove 'domains' as remotePatterns can handle all cases
+    unoptimized: process.env.NODE_ENV === 'development', // Skip optimization in dev
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [

@@ -24,7 +24,7 @@ const OTPForm: React.FC<OTPFormProps> = ({ redirectTo }) => {
     const data: any = { email: email };
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}user/resend-otp`,
+        `/api/v1/user/resend-otp`,
         data
       );
 
@@ -45,7 +45,7 @@ const OTPForm: React.FC<OTPFormProps> = ({ redirectTo }) => {
     const data = { email: email, otp: otp };
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_V1_BASE_API_URL as string}user/verify-otp`,
+        `/api/v1/user/verify-otp`,
         data
       );
       if (res.status === 200) {
